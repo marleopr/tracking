@@ -15,24 +15,6 @@ const getIconForStatus = (status) => {
     }
     return statusDict[status] || <FaBox />
 }
-// const getIconForStatus = (status) => {
-//     switch (status) {
-//         case "Objeto postado":
-//             return <FaBox />;
-//         case "Objeto recebido pelos Correios do Brasil":
-//             return <FaFlag />;
-//         case "Fiscalização aduaneira finalizada":
-//             return <FaCheck />;
-//         case "Objeto encaminhado":
-//             return <FaTruck />;
-//         case "Objeto saiu para entrega ao destinatário":
-//             return <FaExclamationCircle />;
-//         case "Objeto entregue ao destinatário":
-//             return <FaCheck />;
-//         default:
-//             return <FaBox />;
-//     }
-// };
 
 const TrackingInfo = ({ trackingData }) => {
     if (!trackingData) {
@@ -66,6 +48,3 @@ const TrackingInfo = ({ trackingData }) => {
 };
 
 export default TrackingInfo;
-
-
-
