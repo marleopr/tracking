@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BASE_URL, token, user } from '../constants/BASE_URL';
-import TrackingInfo from './TrackingInfo';
-import { FaTrash } from 'react-icons/fa';
-
+import { BASE_URL, token, user } from '../../constants/BASE_URL';
+import TrackingInfo from '../TrackingInfo';
+import LinksExternos from '../../components/linksExternos/LinksExternos';
+import { HistoricDiv, StyledTrashIcon, TrackCointainer } from './HomePageStyled';
+import TrackButton from '../../components/loadersButtons/TrackButton';
+import TrackInput from '../../components/loadersButtons/TrackInput';
 const HomePage = () => {
     const [apiData, setApiData] = useState(null);
     const [codigo, setCodigo] = useState("");
@@ -60,9 +62,9 @@ const HomePage = () => {
     // Função para realizar a pesquisa sempre que o estado `codigo` for atualizado
     useEffect(() => {
         if (codigo.trim() !== '') {
-            handleSearch(); // Chama a função de pesquisa novamente
+            // handleSearch(); // Chama a função de pesquisa novamente
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [codigo]);
 
     // Função para realizar uma nova pesquisa com o código clicado no histórico
@@ -77,10 +79,17 @@ const HomePage = () => {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-            <div>
-                <input type='text' placeholder='Digite aqui' value={codigo} onChange={(event) => setCodigo(event.target.value)} />
-                <button onClick={handleSearch}>Rastrear</button>
-            </div>
+            <TrackCointainer>
+                <span>
+                    {/* <input type='text' placeholder='Digite aqui' value={codigo} onChange={(event) => setCodigo(event.target.value)} /> */}
+                    <TrackInput value={codigo} onChange={(event) => setCodigo(event.target.value)} />
+                </span>
+                <span>
+                    {/* <button onClick={handleSearch}>Rastrear</button> */}
+                    <TrackButton handleSearch={handleSearch}>Rastrear</TrackButton>
+                </span>
+
+            </TrackCointainer>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             {loading ? (
                 <p>Carregando...</p>
@@ -91,22 +100,25 @@ const HomePage = () => {
                     </div>
                 ) : (
                     searchHistory.length > 0 && (
-                        <div style={{ marginTop: '20px', textAlign: 'center' }}>
+                        <HistoricDiv style={{ marginTop: '20px', textAlign: 'center' }}>
+                            <LinksExternos />
                             <h2>Histórico de Pesquisas:</h2>
                             <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                                 {searchHistory.map((item, index) => (
                                     <li key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-                                        <span onClick={() => handleSearchFromHistory(item)} style={{ cursor: 'pointer' }}>
+                                        <span onClick={() => handleSearchFromHistory(item)} >
                                             {item}
                                         </span>
-                                        <FaTrash
-                                            style={{ marginLeft: '5px', cursor: 'pointer' }}
+                                        <StyledTrashIcon
                                             onClick={() => handleDeleteSearch(index)}
+                                            aria-label="Excluir"
+                                            alt="Lixeira"
+                                            title="Excluir"
                                         />
                                     </li>
                                 ))}
                             </ul>
-                        </div>
+                        </HistoricDiv>
                     )
                 )
             )}
