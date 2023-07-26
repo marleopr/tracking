@@ -1,7 +1,10 @@
 import './styled.css'
-const TrackButton = (props) => {
+const TrackButton = ({ handleSearch, buttonClicked }) => {
+    const handleClick = () => {
+        handleSearch();
+    };
     return (
-        <button className="contactButton" onClick={props.handleSearch}>
+        <button className="contactButton" onClick={handleClick} disabled={buttonClicked} >
             Rastrear
             <div className="iconButton">
                 <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

@@ -15,6 +15,7 @@ const HomePage = () => {
     const [codigo, setCodigo] = useState("");
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [buttonClicked, setButtonClicked] = useState(false);
 
     // Função auxiliar para recuperar o histórico do localStorage
     const getSearchHistoryFromLocalStorage = () => {
@@ -67,35 +68,31 @@ const HomePage = () => {
     const handleSearch = async () => {
         await getTracks();
     };
-
-    // Função para realizar a pesquisa sempre que o estado `codigo` for atualizado
     useEffect(() => {
-        if (codigo.trim() !== '') {
-            // handleSearch(); // Chama a função de pesquisa novamente
+        if (buttonClicked) {
+            handleSearch(); // Chama a função de pesquisa
+            setButtonClicked(false); // Reseta buttonClicked para false após a pesquisa
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [codigo]);
+    }, [buttonClicked]);
 
     // Função para realizar uma nova pesquisa com o código clicado no histórico
     const handleSearchFromHistory = (codigo) => {
         setCodigo(codigo); // Define o código para realizar a pesquisa
         setError(null); // Limpa o estado de erro
         setApiData(null); // Limpa o estado de dados da API
-        handleSearch(); // Chama a função de pesquisa novamente
+        setButtonClicked(true);
     };
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
             <TrackCointainer>
                 <span>
-                    {/* <input type='text' placeholder='Digite aqui' value={codigo} onChange={(event) => setCodigo(event.target.value)} /> */}
                     <TrackInput value={codigo.toUpperCase()} onChange={(event) => setCodigo(event.target.value)} />
                 </span>
                 <span>
-                    {/* <button onClick={handleSearch}>Rastrear</button> */}
-                    <TrackButton handleSearch={handleSearch}>Rastrear</TrackButton>
+                    <TrackButton handleSearch={handleSearch} buttonClicked={buttonClicked} >Rastrear</TrackButton>
                 </span>
-
             </TrackCointainer>
             {error && <p style={{ color: 'red', width: '70%' }}>{error}</p>}
             {loading ? (
@@ -107,27 +104,9 @@ const HomePage = () => {
                     </div>
                 ) : (
                     searchHistory.length > 0 && (
-                        // <HistoricDiv style={{ marginTop: '20px', textAlign: 'center' }}>
                         <HistoricDiv >
                             <LinksExternos />
                             <TrackHistory searchHistory={searchHistory} handleSearchFromHistory={handleSearchFromHistory} handleDeleteSearch={handleDeleteSearch} />
-
-                            {/* <h2>Histórico de Pesquisas:</h2>
-                            <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                                {searchHistory.map((item, index) => (
-                                    <li key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-                                        <span onClick={() => handleSearchFromHistory(item)} >
-                                            {item}
-                                        </span>
-                                        <StyledTrashIcon
-                                            onClick={() => handleDeleteSearch(index)}
-                                            aria-label="Excluir"
-                                            alt="Lixeira"
-                                            title="Excluir"
-                                        />
-                                    </li>
-                                ))}
-                            </ul> */}
                         </HistoricDiv>
                     )
                 )
