@@ -4,6 +4,8 @@ import {
 } from "@chakra-ui/react";
 import { FaTruck, FaFlag, FaCheck, FaBox, FaExclamationCircle, FaTimesCircle } from "react-icons/fa"; // Aqui importamos os ícones do pacote react-icons/fa
 import logoCorreios from '../assets/correios.svg'
+import StatusBar from '../components/loadersButtons/StatusBar';
+
 
 const getIconForStatus = (status) => {
     const statusDict = {
@@ -18,10 +20,13 @@ const getIconForStatus = (status) => {
     return statusDict[status] || <FaBox />
 }
 
+
 const TrackingInfo = ({ trackingData }) => {
     if (!trackingData) {
         return null;
     }
+
+    const lastEvent = trackingData.eventos[0] // Obtém o último evento
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -35,6 +40,10 @@ const TrackingInfo = ({ trackingData }) => {
                         title='Correios'
                     />
                 </a>
+                <div>
+                    <StatusBar evento={lastEvent} />
+                </div>
+
                 {trackingData.eventos.map((evento, index) => {
                     // Separa a origem e o destino a partir do array subStatus
                     const [origem, destino] = evento.subStatus.map((sub) => sub.split(": ")[1]);

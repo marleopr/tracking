@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Main = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     justify-content: center;
 `
 export const Logo = styled.img`

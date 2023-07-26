@@ -3,9 +3,13 @@ import axios from 'axios';
 import { BASE_URL, token, user } from '../../constants/BASE_URL';
 import TrackingInfo from '../TrackingInfo';
 import LinksExternos from '../../components/linksExternos/LinksExternos';
-import { HistoricDiv, StyledTrashIcon, TrackCointainer } from './HomePageStyled';
+import { HistoricDiv, TrackCointainer } from './HomePageStyled';
 import TrackButton from '../../components/loadersButtons/TrackButton';
 import TrackInput from '../../components/loadersButtons/TrackInput';
+import TrackLoader from '../../components/loadersButtons/TrackLoader';
+import TrackHistory from '../../components/trackHistory/TrackHistory';
+// import mockData from './mockData';
+
 const HomePage = () => {
     const [apiData, setApiData] = useState(null);
     const [codigo, setCodigo] = useState("");
@@ -32,8 +36,6 @@ const HomePage = () => {
         localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
     }, [searchHistory]);
 
-
-
     const getTracks = async () => {
         setError(null);
         const codePattern = /^[a-zA-Z]{1,2}\d{9}[a-zA-Z]{1,2}$/;
@@ -48,6 +50,13 @@ const HomePage = () => {
             setLoading(false);
             setSearchHistory(prevHistory => [...prevHistory, codigo]);
             console.log(res.data);
+
+            //DADOS MOCKADOS:
+            // setApiData(mockData); // Use the mockData instead
+            // setLoading(false);
+            // setSearchHistory(prevHistory => [...prevHistory, codigo]);
+            // console.log(mockData); // For debugging purposes, log the mockData
+
         } catch (error) {
             setLoading(false);
             setError("Ocorreu um erro ao buscar o código de rastreamento. Por favor, tente novamente mais tarde.");
@@ -75,14 +84,12 @@ const HomePage = () => {
         handleSearch(); // Chama a função de pesquisa novamente
     };
 
-
-
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
             <TrackCointainer>
                 <span>
                     {/* <input type='text' placeholder='Digite aqui' value={codigo} onChange={(event) => setCodigo(event.target.value)} /> */}
-                    <TrackInput value={codigo} onChange={(event) => setCodigo(event.target.value)} />
+                    <TrackInput value={codigo.toUpperCase()} onChange={(event) => setCodigo(event.target.value)} />
                 </span>
                 <span>
                     {/* <button onClick={handleSearch}>Rastrear</button> */}
@@ -90,9 +97,9 @@ const HomePage = () => {
                 </span>
 
             </TrackCointainer>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {error && <p style={{ color: 'red', width: '70%' }}>{error}</p>}
             {loading ? (
-                <p>Carregando...</p>
+                <TrackLoader />
             ) : (
                 apiData ? (
                     <div style={{ margin: '10px' }}>
@@ -100,9 +107,12 @@ const HomePage = () => {
                     </div>
                 ) : (
                     searchHistory.length > 0 && (
-                        <HistoricDiv style={{ marginTop: '20px', textAlign: 'center' }}>
+                        // <HistoricDiv style={{ marginTop: '20px', textAlign: 'center' }}>
+                        <HistoricDiv >
                             <LinksExternos />
-                            <h2>Histórico de Pesquisas:</h2>
+                            <TrackHistory searchHistory={searchHistory} handleSearchFromHistory={handleSearchFromHistory} handleDeleteSearch={handleDeleteSearch} />
+
+                            {/* <h2>Histórico de Pesquisas:</h2>
                             <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                                 {searchHistory.map((item, index) => (
                                     <li key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
@@ -117,7 +127,7 @@ const HomePage = () => {
                                         />
                                     </li>
                                 ))}
-                            </ul>
+                            </ul> */}
                         </HistoricDiv>
                     )
                 )
