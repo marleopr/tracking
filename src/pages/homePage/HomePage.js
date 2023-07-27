@@ -8,6 +8,9 @@ import TrackInput from '../../components/loadersButtons/TrackInput';
 import TrackLoader from '../../components/loadersButtons/TrackLoader';
 import TrackHistory from '../../components/trackHistory/TrackHistory';
 import TrackButtonV2 from '../../components/loadersButtons/TrackButtonV2';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // import mockData from './mockData';
 
 const HomePage = () => {
@@ -41,7 +44,8 @@ const HomePage = () => {
         setError(null);
         const codePattern = /^[a-zA-Z]{1,2}\d{9}[a-zA-Z]{1,2}$/;
         if (!codigo.match(codePattern)) {
-            setError("O código digitado está incorreto. Por favor, insira um código válido no padrão 'NB123456789BR'.");
+            // setError("O código digitado está incorreto. Por favor, insira um código válido no padrão 'NB123456789BR'.");
+            toast.error("O código digitado está incorreto. Insira um código válido no padrão 'NB123456789BR'.")
             return;
         }
         setLoading(true);
@@ -50,8 +54,7 @@ const HomePage = () => {
             setApiData(res.data);
             setLoading(false);
             setSearchHistory(prevHistory => [...prevHistory, codigo]);
-            console.log(res.data);
-
+            toast.success('Encomenda rastreada!')
             //DADOS MOCKADOS:
             // setApiData(mockData); // Use the mockData instead
             // setLoading(false);
@@ -60,8 +63,8 @@ const HomePage = () => {
 
         } catch (error) {
             setLoading(false);
-            setError("Ocorreu um erro ao buscar o código de rastreamento. Por favor, tente novamente mais tarde.");
-            console.log(error);
+            // setError("Ocorreu um erro ao buscar o código de rastreamento. Por favor, tente novamente mais tarde.");
+            toast.error("Ocorreu um erro ao buscar o código de rastreamento. Por favor, tente novamente mais tarde.")
         }
     };
 
@@ -86,6 +89,7 @@ const HomePage = () => {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+            <ToastContainer />
             <TrackCointainer>
                 <span>
                     <TrackInput value={codigo.toUpperCase()} onChange={(event) => setCodigo(event.target.value)} />
@@ -93,6 +97,7 @@ const HomePage = () => {
                 <span>
                     <TrackButtonV2 handleSearch={handleSearch} buttonClicked={buttonClicked} >Rastrear</TrackButtonV2>
                 </span>
+
             </TrackCointainer>
             {error && <p style={{ color: 'red', width: '70%' }}>{error}</p>}
             {loading ? (
