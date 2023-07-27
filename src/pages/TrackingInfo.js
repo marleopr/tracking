@@ -1,8 +1,9 @@
 import React from 'react';
 import { Box } from "@chakra-ui/react";
-import { FaTruck, FaFlag, FaCheck, FaBox, FaExclamationCircle, FaTimesCircle } from "react-icons/fa";
+import { FaTruck, FaFlag, FaCheck, FaBox, FaExclamationCircle, FaTimesCircle, FaChevronCircleUp } from "react-icons/fa";
 import logoCorreios from '../assets/correios.svg'
 import StatusBar from '../components/loadersButtons/StatusBar';
+import TrackPrint from '../components/loadersButtons/TrackPrint';
 
 const getIconForStatus = (status) => {
     const statusDict = {
@@ -20,6 +21,13 @@ const getIconForStatus = (status) => {
 const TrackingInfo = ({ trackingData }) => {
     if (!trackingData) {
         return null;
+    }
+
+    const handleTrackPrint = () => {
+        window.print()
+    }
+    const handleScrollPage = () => {
+        window.scrollTo(0, 0);
     }
 
     const lastEvent = trackingData.eventos[0] // Obtém o último evento
@@ -70,6 +78,10 @@ const TrackingInfo = ({ trackingData }) => {
                         </div>
                     );
                 })}
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
+                    <TrackPrint handleTrackPrint={handleTrackPrint} />
+                    <FaChevronCircleUp onClick={handleScrollPage} style={{ cursor: 'pointer' }} size={30} />
+                </div>
             </div>
         </div>
     );
