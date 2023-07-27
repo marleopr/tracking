@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaGithub, FaLinkedin, FaGlobe, FaWhatsapp } from 'react-icons/fa';
+import linkTrackLogo from "../../assets/linkEtrackLogo.png"
 
 const Footer = () => {
     return (
@@ -43,7 +44,15 @@ const Footer = () => {
                     <FaWhatsapp />
                 </a>
             </div>
-            Márleo Piber | Full Stack Developer © 2023
+            <div style={{ display: "flex", flexDirection: "column", textAlign: 'center' }}>
+                <p style={{ margin: 0 }}>
+                    Márleo Piber • Full Stack Developer © 2023 •
+                    Desenvolvido com a API
+                    <a href={'https://linketrack.com/'} target="_blank" rel="noopener noreferrer">
+                        <img style={{ width: "100px", marginLeft: "5px" }} src={linkTrackLogo} alt='Link & Track' />
+                    </a>
+                </p>
+            </div>
         </div>
     );
 };

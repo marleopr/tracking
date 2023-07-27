@@ -4,10 +4,10 @@ import { BASE_URL, token, user } from '../../constants/BASE_URL';
 import TrackingInfo from '../TrackingInfo';
 import LinksExternos from '../../components/linksExternos/LinksExternos';
 import { HistoricDiv, TrackCointainer } from './HomePageStyled';
-import TrackButton from '../../components/loadersButtons/TrackButton';
 import TrackInput from '../../components/loadersButtons/TrackInput';
 import TrackLoader from '../../components/loadersButtons/TrackLoader';
 import TrackHistory from '../../components/trackHistory/TrackHistory';
+import TrackButtonV2 from '../../components/loadersButtons/TrackButtonV2';
 // import mockData from './mockData';
 
 const HomePage = () => {
@@ -91,7 +91,7 @@ const HomePage = () => {
                     <TrackInput value={codigo.toUpperCase()} onChange={(event) => setCodigo(event.target.value)} />
                 </span>
                 <span>
-                    <TrackButton handleSearch={handleSearch} buttonClicked={buttonClicked} >Rastrear</TrackButton>
+                    <TrackButtonV2 handleSearch={handleSearch} buttonClicked={buttonClicked} >Rastrear</TrackButtonV2>
                 </span>
             </TrackCointainer>
             {error && <p style={{ color: 'red', width: '70%' }}>{error}</p>}

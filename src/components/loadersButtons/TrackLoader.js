@@ -1,6 +1,6 @@
 const TrackLoader = () => {
     return (
-        <div class="loader"></div>
+        <div className="loader"></div>
     )
 }
 export default TrackLoader

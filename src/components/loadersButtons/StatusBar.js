@@ -22,20 +22,6 @@ const StatusBar = ({ evento }) => {
                 title={evento.status}
             />
         </div>
-        // <div>
-        //     {trackingData.eventos.map((item, index) => {
-        //         return (
-        //             <img
-        //                 key={index}
-        //                 src={getBarStatus(item.status)}
-        //                 style={{ display: 'inline-block', margin: '5px' }}
-        //                 alt={item.status}
-        //                 title={item.status}
-        //             />
-        //         )
-        //     })}
-
-        // </div>
     )
 }
 export default StatusBar
