@@ -48,7 +48,7 @@ const BuscaCep = () => {
             console.log(res)
             setCepData(res.data)
             setLoading(false)
-            setCepHistory(prevCepHistory => [...prevCepHistory, codigoCep])
+            setCepHistory(prevCepHistory => [...prevCepHistory, { cep: codigoCep, localidade: res.data.localidade }])
             toast.success("CEP encontrado!")
         } catch (error) {
             console.log(error, "Código errado")

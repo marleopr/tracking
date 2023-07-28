@@ -62,7 +62,11 @@ const HomePage = () => {
             const res = await axios.get(`${BASE_URL}user=${user}&token=${token}&codigo=${codigo}`);
             setApiData(res.data);
             setLoading(false);
-            setSearchHistory(prevHistory => [...prevHistory, codigo]);
+            console.log(res.data)
+            console.log(res.data.eventos[0].status)
+
+            // setSearchHistory(prevHistory => [...prevHistory, codigo]);
+            setSearchHistory(prevHistory => [...prevHistory, { codigo: codigo, status: res.data.eventos?.[0]?.status }]);
             toast.success('Encomenda rastreada!')
             //DADOS MOCKADOS:
             // setApiData(mockData); // Use the mockData instead

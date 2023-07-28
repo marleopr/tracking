@@ -8,9 +8,11 @@ const TrackHistory = ({ searchHistory, handleSearchFromHistory, handleDeleteSear
             <HistoryContainer>
                 {searchHistory.map((item, index) => (
                     <li key={index} >
-                        <span onClick={() => handleSearchFromHistory(item)} >
-                            {item}
-                        </span>
+                        <CenteredContent>
+                            <span onClick={() => handleSearchFromHistory(item.codigo)} >
+                                {item.codigo} - {item.status ? item.status : 'Status não disponível'}
+                            </span>
+                        </CenteredContent>
                         <StyledTrashIcon
                             onClick={() => handleDeleteSearch(index)}
                             aria-label="Excluir"
@@ -34,9 +36,21 @@ const HistoryContainer = styled.div`
     background-color: #f8fbfe;
     max-height: 25rem;
     overflow: auto;
+    width: 100%;
     li{
         display: flex;
         align-items: center;
-        margin-bottom: 5px;
+        margin: 5px;
+        margin-top: 5px;
+        justify-content: space-between; 
+        width: 95%; 
+        border-bottom: 1px solid #f1f1f1;
+        span {
+            margin-right: 8px;
+        }
     }
-`
+    `
+const CenteredContent = styled.div`
+  display: flex;
+  align-items: center;
+`;
