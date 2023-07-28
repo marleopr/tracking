@@ -1,16 +1,28 @@
 import './styled.css'
-const TrackButton = ({ handleSearch, buttonClicked }) => {
+const TrackButton = ({ onClick, label, iconSvg }) => {
     const handleClick = () => {
-        handleSearch();
+        onClick();
     };
+    const SvgIcon = ({ icon, color }) => {
+        return (
+            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512" fill={color}>
+                {icon}
+            </svg>
+        );
+    };
+
     return (
-        <button className="contactButton" onClick={handleClick} disabled={buttonClicked} >
-            Rastrear
+        <button className="contactButton" onClick={handleClick} >
+            {label}
             <div className="iconButton">
-                <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <SvgIcon icon={iconSvg} color="#ffffff" />
+
+
+
+                {/* <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0 0h24v24H0z" fill="none"></path>
                     <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor"></path>
-                </svg>
+                </svg> */}
             </div>
         </button>
     )

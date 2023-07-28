@@ -18,7 +18,7 @@
 }
 
 /* TrackButton */
-/* .contactButton {
+.contactButton {
   background: #3cb371;
   color: white;
   font-family: inherit;
@@ -61,7 +61,7 @@
 .contactButton:active {
   transform: translate(0.05em, 0.05em);
   box-shadow: 0.1em 0.1em #228b22;
-} */
+}
 
 /* TrackButtonV2 */
 button {
