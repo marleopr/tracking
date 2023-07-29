@@ -3,7 +3,7 @@ import axios from 'axios';
 import { BASE_URL, token, user } from '../../constants/BASE_URL';
 import TrackingInfo from '../TrackingInfo';
 import LinksExternos from '../../components/linksExternos/LinksExternos';
-import { HistoricDiv, TrackCointainer } from './HomePageStyled';
+import { TrackCointainer } from './HomePageStyled';
 import TrackInput from '../../components/loadersButtons/TrackInput';
 import TrackLoader from '../../components/loadersButtons/TrackLoader';
 import TrackHistory from '../../components/trackHistory/TrackHistory';
@@ -139,11 +139,11 @@ const HomePage = () => {
                     </div>
                 ) : (
                     searchHistory.length > 0 && (
-                        <HistoricDiv >
+                        <div style={{ width: '100%' }} >
                             {/* <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             </div> */}
                             <TrackHistory searchHistory={searchHistory} handleSearchFromHistory={handleSearchFromHistory} handleDeleteSearch={handleDeleteSearch} />
-                        </HistoricDiv>
+                        </div>
                     )
                 )
             )}

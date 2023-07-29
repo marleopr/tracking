@@ -18,7 +18,7 @@ const BuscaCep = () => {
     const [codigoCep, setCodigoCep] = useState("")
     const [cepData, setCepData] = useState(null)
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    // const [error, setError] = useState(null);
     const [buttonClicked, setButtonClicked] = useState(false);
 
 
@@ -45,16 +45,20 @@ const BuscaCep = () => {
     const getCep = async () => {
         try {
             const res = await axios.get(`https://viacep.com.br/ws/${codigoCep}/json/`)
-            console.log(res)
-            setCepData(res.data)
-            setLoading(false)
-            setCepHistory(prevCepHistory => [...prevCepHistory, { cep: codigoCep, localidade: res.data.localidade }])
-            toast.success("CEP encontrado!")
+            if (res.data.erro) {
+                setCepData(null); // Define como null para indicar que os dados do CEP não foram encontrados
+                setLoading(false);
+                toast.error("O CEP digitado não foi encontrado ou é inválido.");
+            } else {
+                setCepData(res.data);
+                setLoading(false);
+                setCepHistory(prevCepHistory => [...prevCepHistory, { cep: codigoCep, localidade: res.data.localidade }]);
+                toast.success("CEP encontrado!");
+            }
         } catch (error) {
-            console.log(error, "Código errado")
-            toast.error("O CEP digitado está incorreto, insira um CEP válido de 8 digitos")
+            toast.error("Ocorreu um erro ao buscar o CEP. Por favor, tente novamente.");
         }
-    }
+    };
 
     const handleGetCep = async () => {
         await getCep()
@@ -71,7 +75,7 @@ const BuscaCep = () => {
     // Função para realizar uma nova pesquisa com o código clicado no histórico
     const handleCepFromHistory = (codigoCep) => {
         setCodigoCep(codigoCep); // Define o código para realizar a pesquisa
-        setError(null); // Limpa o estado de erro
+        // setError(null); // Limpa o estado de erro
         setCepData(null); // Limpa o estado de dados da API
         setButtonClicked(true);
     };

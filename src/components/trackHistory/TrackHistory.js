@@ -1,56 +1,69 @@
 import { styled } from "styled-components"
 import { StyledTrashIcon } from "../../pages/homePage/HomePageStyled"
-
+import { FaBox, FaCheck, FaExclamationCircle, FaFlag, FaTimesCircle, FaTruck } from "react-icons/fa"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 const TrackHistory = ({ searchHistory, handleSearchFromHistory, handleDeleteSearch }) => {
+    const getIconForStatus = (status) => {
+        const statusDict = {
+            "Status não disponível": <FontAwesomeIcon icon={faCircleXmark} />,
+            "Objeto postado": <FaBox />,
+            "Objeto recebido pelos Correios do Brasil": <FaFlag />,
+            "Fiscalização aduaneira finalizada": <FaCheck />,
+            "Objeto encaminhado": <FaTruck />,
+            "Objeto saiu para entrega ao destinatário": <FaExclamationCircle />,
+            "Saída para entrega cancelada": <FaTimesCircle />,
+            "Objeto entregue ao destinatário": <FaCheck />,
+        }
+        return statusDict[status] || <FaBox />
+    }
+
     return (
         <div>
             <h3>Histórico de Pesquisas:</h3>
             <HistoryContainer>
                 {searchHistory.map((item, index) => (
-                    <li key={index} >
-                        <CenteredContent>
+                    <ul key={index} >
+                        <div>
                             <span onClick={() => handleSearchFromHistory(item.codigo)} >
-                                {item.codigo} - {item.status ? item.status : 'Status não disponível'}
+                                {getIconForStatus(item.status)} {item.codigo} - {item.status ? item.status : 'Status não disponível'}
                             </span>
-                        </CenteredContent>
-                        <StyledTrashIcon
-                            onClick={() => handleDeleteSearch(index)}
-                            aria-label="Excluir"
-                            alt="Lixeira"
-                            title="Excluir"
-                        />
-                    </li>
+                            <StyledTrashIcon
+                                onClick={() => handleDeleteSearch(index)}
+                                aria-label="Excluir"
+                                alt="Lixeira"
+                                title="Excluir"
+                            />
+                        </div>
+                    </ul>
                 ))}
             </HistoryContainer>
-        </div>
+        </div >
     )
 }
 export default TrackHistory
 const HistoryContainer = styled.div`
-    list-style: none; 
-    margin-top: 10px; 
     display: flex; 
     flex-direction: column; 
-    justify-content: center;
-    align-items: center;
     background-color: #f8fbfe;
     max-height: 25rem;
     overflow: auto;
     width: 100%;
-    li{
-        display: flex;
-        align-items: center;
-        margin: 5px;
-        margin-top: 5px;
-        justify-content: space-between; 
-        width: 95%; 
-        border-bottom: 1px solid #f1f1f1;
-        span {
-            margin-right: 8px;
-        }
+    span {
+      &:hover{
+        cursor: pointer;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+      }
     }
-    `
-const CenteredContent = styled.div`
-  display: flex;
-  align-items: center;
-`;
+    div {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: start;
+        border-bottom: 1px solid #f1f1f1;
+    }
+    ul{
+        margin: 10px 5px 0 5px;
+        padding: 0;
+    }
+`

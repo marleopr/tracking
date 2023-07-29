@@ -1,10 +1,18 @@
+import { FaBuilding, FaCity, FaGlobeAmericas, FaHome, FaIdCardAlt, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
 import TrackPrint from "../../components/loadersButtons/TrackPrint"
 
 const CepInfo = ({ cepData }) => {
-    if (!cepData) {
-        return null
+    if (!cepData || cepData.erro) {
+        return (
+            <div>
+                <h3>Dados do CEP não encontrados</h3>
+                <p>O CEP digitado não foi encontrado ou é inválido.</p>
+            </div>
+        );
     }
+
     console.log(cepData)
+
     const handleTrackPrint = () => {
         window.print()
     }
@@ -27,14 +35,13 @@ const CepInfo = ({ cepData }) => {
                 <div className="card__content">
                 </div>
                 <div style={{ textAlign: 'start' }}>
-                    <p><strong>CEP:</strong> {cepData.cep}</p>
-                    <p><strong>Logradouro:</strong> {cepData.logradouro}</p>
-                    <p><strong>Cidade:</strong> {cepData.localidade} - {cepData.uf}</p>
-                    <p><strong>complemento:</strong> {cepData.complemento}</p>
-                    <p><strong>Bairro:</strong> {cepData.bairro}</p>
-                    <p><strong>DDD:</strong> {cepData.ddd}</p>
-                    <p><strong>IBGE:</strong> {cepData.ibge}</p>
-                    <p><strong>Código do município (SIAFI):</strong> {cepData.siafi}</p>
+                    <p><FaMapMarkerAlt /> <strong>Logradouro:</strong> {cepData.logradouro || "N/D"}</p>
+                    <p><FaCity /> <strong>Cidade:</strong> {cepData.localidade} - {cepData.uf}</p>
+                    <p><FaHome /> <strong>complemento:</strong> {cepData.complemento || "N/D"}</p>
+                    <p><FaBuilding /> <strong>Bairro:</strong> {cepData.bairro || "N/D"}</p>
+                    <p><FaPhone /> <strong>DDD:</strong> {cepData.ddd}</p>
+                    <p><FaGlobeAmericas /> <strong>IBGE:</strong> {cepData.ibge}</p>
+                    <p><FaIdCardAlt /> <strong>Código do município (SIAFI):</strong> {cepData.siafi}</p>
                 </div>
                 <h6>Powered by API ViaCEP</h6>
             </div>
