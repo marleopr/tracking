@@ -6,7 +6,7 @@ export const TrackCointainer = styled.div`
     flex-direction: row;
     align-items: center;
     span{
-        margin: 10px;
+        margin: 5px;
     }
 `
 

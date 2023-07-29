@@ -53,7 +53,6 @@ const HomePage = () => {
         setError(null);
         const codePattern = /^[a-zA-Z]{1,2}\d{9}[a-zA-Z]{1,2}$/;
         if (!codigo.match(codePattern)) {
-            // setError("O código digitado está incorreto. Por favor, insira um código válido no padrão 'NB123456789BR'.");
             toast.error("O código digitado está incorreto. Insira um código válido no padrão 'NB123456789BR'.")
             return;
         }
@@ -62,15 +61,9 @@ const HomePage = () => {
             const res = await axios.get(`${BASE_URL}user=${user}&token=${token}&codigo=${codigo}`);
             setApiData(res.data);
             setLoading(false);
-            console.log(res.data)
-            // console.log(res.data.eventos[0].status)
-
-            // setSearchHistory(prevHistory => [...prevHistory, codigo]);
-            // setSearchHistory(prevHistory => [...prevHistory, { codigo: codigo, status: res.data.eventos?.[0]?.status }]);
             if (res.data.eventos && res.data.eventos.length > 0) {
                 setSearchHistory(prevHistory => [...prevHistory, { codigo: codigo, status: res.data.eventos[0].status }]);
             } else {
-                // setSearchHistory(prevHistory => [...prevHistory, { codigo: codigo, status: 'Status não disponível' }]);
                 setSearchHistory(prevHistory => [...prevHistory, { codigo: codigo, status: 'Status não disponível' }]);
             }
             if (res.data.eventos.length === 0) {
@@ -91,7 +84,6 @@ const HomePage = () => {
 
         } catch (error) {
             setLoading(false);
-            // setError("Ocorreu um erro ao buscar o código de rastreamento. Por favor, tente novamente mais tarde.");
             toast.error("Ocorreu um erro ao buscar o código de rastreamento. Por favor, tente novamente mais tarde.")
         }
     };

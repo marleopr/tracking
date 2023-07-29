@@ -13,12 +13,9 @@ import CepHistory from "../../components/cepHistory/CepHistory"
 
 const BuscaCep = () => {
     const navigate = useNavigate()
-
-    // const [codigo, setCodigo] = useState("")
     const [codigoCep, setCodigoCep] = useState("")
     const [cepData, setCepData] = useState(null)
     const [loading, setLoading] = useState(false);
-    // const [error, setError] = useState(null);
     const [buttonClicked, setButtonClicked] = useState(false);
 
 
@@ -75,7 +72,6 @@ const BuscaCep = () => {
     // Função para realizar uma nova pesquisa com o código clicado no histórico
     const handleCepFromHistory = (codigoCep) => {
         setCodigoCep(codigoCep); // Define o código para realizar a pesquisa
-        // setError(null); // Limpa o estado de erro
         setCepData(null); // Limpa o estado de dados da API
         setButtonClicked(true);
     };
@@ -84,7 +80,6 @@ const BuscaCep = () => {
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
             <TrackButton onClick={() => goToHomePage(navigate)} label='Voltar' iconSvg={<path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />} />
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-                {/* <input type="number" placeholder="Digite o CEP aqui" value={codigoCep} onChange={(event) => setCodigoCep(event.target.value)} /> */}
                 <CepCointainer>
                     <span>
                         <TrackInput type="number" placeholder="Digite o CEP aqui" value={codigoCep} onChange={(event) => setCodigoCep(event.target.value)} />
@@ -102,7 +97,6 @@ const BuscaCep = () => {
                         <CepInfo cepData={cepData} />
                     </div>
                 ) : (
-                    // <div><p>Busque um CEP</p></div>
                     cepHistory.length > 0 && (
                         <HistoricCepDiv >
                             <CepHistory cepHistory={cepHistory} handleCepFromHistory={handleCepFromHistory} handleDeleteCep={handleDeleteCep} />
