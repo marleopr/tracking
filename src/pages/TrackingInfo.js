@@ -4,7 +4,8 @@ import { FaTruck, FaFlag, FaCheck, FaBox, FaExclamationCircle, FaTimesCircle, Fa
 import logoCorreios from '../assets/correios.svg'
 import StatusBar from '../components/loadersButtons/StatusBar';
 import TrackPrint from '../components/loadersButtons/TrackPrint';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 const getIconForStatus = (status) => {
     const statusDict = {
         "Objeto postado": <FaBox />,
@@ -21,6 +22,16 @@ const getIconForStatus = (status) => {
 const TrackingInfo = ({ trackingData }) => {
     if (!trackingData) {
         return null;
+    }
+
+    if (trackingData.eventos.length === 0) {
+        return (
+            <div>
+                <h3>Dados de rastreamento para: {trackingData.codigo}</h3>
+                <FontAwesomeIcon icon={faCircleXmark} />
+                <p>Status não disponível.</p>
+            </div>
+        );
     }
 
     const handleTrackPrint = () => {
@@ -47,7 +58,6 @@ const TrackingInfo = ({ trackingData }) => {
                 <div>
                     <StatusBar evento={lastEvent} />
                 </div>
-
                 {trackingData.eventos.map((evento, index) => {
                     // Separa a origem e o destino a partir do array subStatus
                     const [origem, destino] = evento.subStatus.map((sub) => sub.split(": ")[1]);

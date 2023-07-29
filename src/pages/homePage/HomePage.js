@@ -63,10 +63,25 @@ const HomePage = () => {
             setApiData(res.data);
             setLoading(false);
             console.log(res.data)
-            console.log(res.data.eventos[0].status)
+            // console.log(res.data.eventos[0].status)
 
             // setSearchHistory(prevHistory => [...prevHistory, codigo]);
-            setSearchHistory(prevHistory => [...prevHistory, { codigo: codigo, status: res.data.eventos?.[0]?.status }]);
+            // setSearchHistory(prevHistory => [...prevHistory, { codigo: codigo, status: res.data.eventos?.[0]?.status }]);
+            if (res.data.eventos && res.data.eventos.length > 0) {
+                setSearchHistory(prevHistory => [...prevHistory, { codigo: codigo, status: res.data.eventos[0].status }]);
+            } else {
+                // setSearchHistory(prevHistory => [...prevHistory, { codigo: codigo, status: 'Status não disponível' }]);
+                setSearchHistory(prevHistory => [...prevHistory, { codigo: codigo, status: 'Status não disponível' }]);
+            }
+            if (res.data.eventos.length === 0) {
+                return (
+                    <div>
+                        <h3>Dados de rastreamento para: {res.data.codigo}</h3>
+                        {toast.error("Status não disponível")}
+                    </div>
+                );
+            }
+
             toast.success('Encomenda rastreada!')
             //DADOS MOCKADOS:
             // setApiData(mockData); // Use the mockData instead
