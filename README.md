@@ -14,13 +14,13 @@ O site criado é uma aplicação web de rastreamento de encomendas e consulta de
 
 O repositório do projeto pode ser encontrado [aqui](https://github.com/marleopr/tracking)
 
-| Tela de Rastreamento de encomendas                                    | Encomenda rastreada                                       |
-| --------------------------------------------------------------------- | --------------------------------------------------------- |
-| ![Tela de Rastreamento de encomendas](src\assets\Rastrear-inicio.jpg) | ![Encomenda rastreada](src\assets\Rastrear-rastreado.jpg) |
+| Tela de Rastreamento de encomendas          | Encomenda rastreada                            |
+| ------------------------------------------- | ---------------------------------------------- |
+| <img src="src\assets\Rastrear-inicio.jpg" > | <img src="src\assets\Rastrear-rastreado.jpg" > |
 
-| Tela de pesquisa de CEPs                                         | CEP pesquisado                                       |
-| ---------------------------------------------------------------- | ---------------------------------------------------- |
-| ![Tela de Rastreamento de encomendas](src\assets\cep-inicio.jpg) | ![Encomenda rastreada](src\assets\cep-rastreado.jpg) |
+| Tela de pesquisa de CEPs               | CEP pesquisado                            |
+| -------------------------------------- | ----------------------------------------- |
+| <img src="src\assets\cep-inicio.jpg" > | <img src="src\assets\cep-rastreado.jpg" > |
 
 # `Passo a Passo para Instalação do Projeto React:`
 

@@ -1,6 +1,6 @@
 import { styled } from "styled-components"
 import { StyledTrashIcon } from "../../pages/homePage/HomePageStyled"
-import { FaBox, FaCheck, FaExclamationCircle, FaFlag, FaTimesCircle, FaTruck } from "react-icons/fa"
+import { FaBan, FaBox, FaCheck, FaClipboardCheck, FaExclamationCircle, FaFlag, FaMoneyBill, FaTimesCircle, FaTruck, FaUndo } from "react-icons/fa"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 const TrackHistory = ({ searchHistory, handleSearchFromHistory, handleDeleteSearch }) => {
@@ -9,6 +9,11 @@ const TrackHistory = ({ searchHistory, handleSearchFromHistory, handleDeleteSear
             "Status não disponível": <FontAwesomeIcon icon={faCircleXmark} />,
             "Objeto postado": <FaBox />,
             "Objeto recebido pelos Correios do Brasil": <FaFlag />,
+            "Encaminhado para fiscalização aduaneira": <FaClipboardCheck />,
+            "Aguardando pagamento": <FaMoneyBill />,
+            "Destinatário recusou o objeto": <FaBan />,
+            "Devolução autorizada pela Receita Federal": <FaUndo />,
+            "Objeto devolvido ao país de origem": <FaUndo />,
             "Fiscalização aduaneira finalizada": <FaCheck />,
             "Objeto encaminhado": <FaTruck />,
             "Objeto saiu para entrega ao destinatário": <FaExclamationCircle />,

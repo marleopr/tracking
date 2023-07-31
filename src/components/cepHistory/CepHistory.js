@@ -43,7 +43,7 @@ const CepHistoryContainer = styled.div`
         margin: 5px;
         margin-top: 5px;
         justify-content: space-between;
-        width: 95%; 
+        width: 99%; 
         border-bottom: 1px solid #f1f1f1;
         span {
             margin-right: 8px;

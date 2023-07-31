@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from "@chakra-ui/react";
-import { FaTruck, FaFlag, FaCheck, FaBox, FaExclamationCircle, FaTimesCircle, FaChevronCircleUp } from "react-icons/fa";
+import { FaTruck, FaFlag, FaCheck, FaBox, FaExclamationCircle, FaTimesCircle, FaChevronCircleUp, FaClipboardCheck, FaMoneyBill, FaBan, FaUndo } from "react-icons/fa";
 import logoCorreios from '../assets/correios.svg'
 import StatusBar from '../components/loadersButtons/StatusBar';
 import TrackPrint from '../components/loadersButtons/TrackPrint';
@@ -10,6 +10,11 @@ const getIconForStatus = (status) => {
     const statusDict = {
         "Objeto postado": <FaBox />,
         "Objeto recebido pelos Correios do Brasil": <FaFlag />,
+        "Encaminhado para fiscalização aduaneira": <FaClipboardCheck />,
+        "Aguardando pagamento": <FaMoneyBill />,
+        "Destinatário recusou o objeto": <FaBan />,
+        "Devolução autorizada pela Receita Federal": <FaUndo />,
+        "Objeto devolvido ao país de origem": <FaUndo />,
         "Fiscalização aduaneira finalizada": <FaCheck />,
         "Objeto encaminhado": <FaTruck />,
         "Objeto saiu para entrega ao destinatário": <FaExclamationCircle />,

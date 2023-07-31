@@ -4,6 +4,7 @@ export const Main = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     justify-content: center;
+    width: 100%;
 `
 export const Logo = styled.img`
     /* display: inline-block;  */

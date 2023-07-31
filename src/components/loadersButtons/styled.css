@@ -10,6 +10,7 @@
   padding: 10px 1rem;
   transition: 0.25s;
   /* height: 1.5em; */
+  width: 7rem;
 }
 
 .input:focus {

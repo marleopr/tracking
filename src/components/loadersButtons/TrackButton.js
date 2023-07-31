@@ -1,5 +1,5 @@
 import './styled.css'
-const TrackButton = ({ onClick, label, iconSvg }) => {
+const TrackButton = ({ onClick, label, iconSvg, style }) => {
     const handleClick = () => {
         onClick();
     };
@@ -12,7 +12,7 @@ const TrackButton = ({ onClick, label, iconSvg }) => {
     };
 
     return (
-        <button className="contactButton" onClick={handleClick} >
+        <button className="contactButton" onClick={handleClick} style={style} >
             {label}
             <div className="iconButton">
                 <SvgIcon icon={iconSvg} color="#ffffff" />

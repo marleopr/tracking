@@ -1,6 +1,7 @@
 import barPost from '../../assets/postagem.gif'
 import barAlert from '../../assets/aviso.gif'
 import barTransit from '../../assets/transito.gif'
+import barReturned from '../../assets/devolucao_transito.gif'
 import barDelivered from '../../assets/entrega.gif'
 
 const StatusBar = ({ evento }) => {
@@ -8,6 +9,7 @@ const StatusBar = ({ evento }) => {
         const barStatusDict = {
             "Objeto postado": barPost,
             "Objeto encaminhado": barTransit,
+            "Objeto devolvido ao país de origem": barReturned,
             "Objeto entregue ao destinatário": barDelivered,
         }
         return barStatusDict[status] || barAlert
