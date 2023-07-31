@@ -8,12 +8,12 @@ const SvgIcon = ({ icon, color }) => {
     );
 };
 
-const TrackButtonV2 = ({ onClick, label, buttonClicked, iconSvg }) => {
+const TrackButtonV2 = ({ onClick, label, disabled, iconSvg }) => {
     const handleClick = () => {
         onClick();
     };
     return (
-        <button onClick={handleClick} disabled={buttonClicked} className='track-button'>
+        <button onClick={handleClick} disabled={disabled} className='track-button'>
             <div className="track-button" >
                 <div className="track-button">
                     <SvgIcon icon={iconSvg} color="#ffffff" />
