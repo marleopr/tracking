@@ -1,15 +1,17 @@
 import { styled } from "styled-components";
 import trackingLogo from "../assets/tracking logo.png"
+import DownloadButton from "../components/loadersButtons/DownloadButton";
 const Header = () => {
+
     const handleReloadHomePage = () => {
         window.location.reload();
     };
     return (
         <div>
             <div style={{ cursor: "pointer" }} onClick={() => handleReloadHomePage()}>
-                {/* <h1>Tracking</h1> */}
-            <ImgLogo src={trackingLogo}/>
+                <ImgLogo src={trackingLogo} />
             </div>
+            <DownloadButton />
         </div>
     )
 }
