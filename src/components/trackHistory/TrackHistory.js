@@ -23,11 +23,13 @@ const TrackHistory = ({ searchHistory, handleSearchFromHistory, handleDeleteSear
         return statusDict[status] || <FaBox />
     }
 
+    const reversedSearchHistory = searchHistory.slice().reverse()
+
     return (
         <div>
             <h3>Histórico de Pesquisas:</h3>
             <HistoryContainer>
-                {searchHistory.map((item, index) => (
+                {reversedSearchHistory.map((item, index) => (
                     <ul key={index} >
                         <div>
                             <span onClick={() => handleSearchFromHistory(item.codigo)} >
