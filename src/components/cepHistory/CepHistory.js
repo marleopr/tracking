@@ -3,13 +3,13 @@ import { StyledTrashIcon } from "../../pages/homePage/HomePageStyled"
 
 const CepHistory = ({ cepHistory, handleCepFromHistory, handleDeleteCep }) => {
 
-    const reversedCepHistory = cepHistory.slice().reverse()
+    // const reversedCepHistory = cepHistory.slice().reverse()
 
     return (
         <div>
             <h3>Histórico de Pesquisas:</h3>
             <CepHistoryContainer>
-                {reversedCepHistory.map((item, index) => (
+                {cepHistory.map((item, index) => (
                     <li key={index} >
                         <CenteredContent>
                             <span onClick={() => handleCepFromHistory(item.cep)} >
