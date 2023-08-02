@@ -27,8 +27,10 @@ const BuscaCep = () => {
     const [cepHistory, setCepHistory] = useState(getcepHistoryFromLocalStorage());
 
     const handleDeleteCep = (indexToDeleteCep) => {
+        const realIndexToDelete = cepHistory.length - 1 - indexToDeleteCep;
+
         setCepHistory((prevCepHistory) => {
-            const updatedCepHistory = prevCepHistory.filter((item, index) => index !== indexToDeleteCep)
+            const updatedCepHistory = prevCepHistory.filter((item, index) => index !== realIndexToDelete)
             localStorage.setItem('cepHistory', JSON.stringify(updatedCepHistory))
             return updatedCepHistory
         })

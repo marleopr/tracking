@@ -37,8 +37,10 @@ const HomePage = () => {
     const [searchHistory, setSearchHistory] = useState(getSearchHistoryFromLocalStorage());
 
     const handleDeleteSearch = (indexToDelete) => {
+        const realIndexToDelete = searchHistory.length - 1 - indexToDelete;
+
         setSearchHistory((prevHistory) => {
-            const updatedHistory = prevHistory.filter((item, index) => index !== indexToDelete)
+            const updatedHistory = prevHistory.filter((item, index) => index !== realIndexToDelete)
             localStorage.setItem('searchHistory', JSON.stringify(updatedHistory))
             return updatedHistory
         })
