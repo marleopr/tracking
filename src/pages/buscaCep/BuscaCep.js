@@ -27,13 +27,12 @@ const BuscaCep = () => {
     const [cepHistory, setCepHistory] = useState(getcepHistoryFromLocalStorage());
 
     const handleDeleteCep = (indexToDeleteCep) => {
-        const realIndexToDelete = cepHistory.length - 1 - indexToDeleteCep;
-
         setCepHistory((prevCepHistory) => {
-            const updatedCepHistory = prevCepHistory.filter((item, index) => index !== realIndexToDelete)
-            localStorage.setItem('cepHistory', JSON.stringify(updatedCepHistory))
-            return updatedCepHistory
-        })
+            const updatedCepHistory = [...prevCepHistory];
+            updatedCepHistory.splice(indexToDeleteCep, 1);
+            localStorage.setItem('cepHistory', JSON.stringify(updatedCepHistory));
+            return updatedCepHistory;
+        });
     }
 
     // Salvar o histórico no localStorage sempre que for atualizado
@@ -51,8 +50,15 @@ const BuscaCep = () => {
             } else {
                 setCepData(res.data);
                 setLoading(false);
-                setCepHistory(prevCepHistory => [...prevCepHistory, { cep: codigoCep, localidade: res.data.localidade }]);
                 toast.success("CEP encontrado!");
+                const newCepData = { cep: codigoCep, localidade: res.data.localidade, logradouro: res.data.logradouro, uf: res.data.uf };
+                setCepData(res.data);
+                console.log(res.data);
+                setLoading(false);
+                // Verificar se o CEP já está no histórico antes de adicionar
+                if (!cepHistory.some(item => item.cep === newCepData.cep)) {
+                    setCepHistory(prevCepHistory => [newCepData, ...prevCepHistory]);
+                }
             }
         } catch (error) {
             toast.error("Ocorreu um erro ao buscar o CEP. Por favor, tente novamente.");

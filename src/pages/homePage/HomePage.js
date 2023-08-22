@@ -37,14 +37,15 @@ const HomePage = () => {
     const [searchHistory, setSearchHistory] = useState(getSearchHistoryFromLocalStorage());
 
     const handleDeleteSearch = (indexToDelete) => {
-        const realIndexToDelete = searchHistory.length - 1 - indexToDelete;
-
         setSearchHistory((prevHistory) => {
-            const updatedHistory = prevHistory.filter((item, index) => index !== realIndexToDelete)
+            const updatedHistory = [...prevHistory];
+            updatedHistory.splice(indexToDelete, 1); // Remove o item pelo índice
+
             localStorage.setItem('searchHistory', JSON.stringify(updatedHistory))
             return updatedHistory
         })
     }
+
 
     // Salvar o histórico no localStorage sempre que for atualizado
     useEffect(() => {
@@ -63,27 +64,27 @@ const HomePage = () => {
             const res = await axios.get(`${BASE_URL}user=${user}&token=${token}&codigo=${codigo}`);
             setApiData(res.data);
             setLoading(false);
-            if (res.data.eventos && res.data.eventos.length > 0) {
-                setSearchHistory(prevHistory => [...prevHistory, { codigo: codigo, status: res.data.eventos[0].status }]);
+
+            // Verifica se a pesquisa atual já existe no histórico
+            const existingIndex = searchHistory.findIndex(item => item.codigo === codigo);
+
+            if (existingIndex !== -1) {
+                // Se existir, remove a pesquisa anterior
+                setSearchHistory(prevHistory => {
+                    const updatedHistory = [...prevHistory];
+                    updatedHistory.splice(existingIndex, 1);
+                    return [{ codigo, status: res.data.eventos[0]?.status || 'Status não disponível' }, ...updatedHistory];
+                });
             } else {
-                setSearchHistory(prevHistory => [...prevHistory, { codigo: codigo, status: 'Status não disponível' }]);
+                // Se não existir, adiciona a nova pesquisa no topo
+                setSearchHistory(prevHistory => [{ codigo, status: res.data.eventos[0]?.status || 'Status não disponível' }, ...prevHistory]);
             }
+
             if (res.data.eventos.length === 0) {
-                return (
-                    <div>
-                        <h3>Dados de rastreamento para: {res.data.codigo}</h3>
-                        {toast.error("Status não disponível")}
-                    </div>
-                );
+                toast.error("Status não disponível");
+            } else {
+                toast.success('Encomenda rastreada!');
             }
-
-            toast.success('Encomenda rastreada!')
-            //DADOS MOCKADOS:
-            // setApiData(mockData); // Use the mockData instead
-            // setLoading(false);
-            // setSearchHistory(prevHistory => [...prevHistory, codigo]);
-            // console.log(mockData); // For debugging purposes, log the mockData
-
         } catch (error) {
             setLoading(false);
             toast.error("Ocorreu um erro ao buscar o código de rastreamento. Por favor, tente novamente mais tarde.")
